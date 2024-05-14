@@ -4,11 +4,10 @@ import { useState, useEffect, useCallback } from 'react'
 // React Router DOM
 import { useNavigate } from 'react-router'
 
-// Axios
-import { axios } from '../../../plugins/axios'
-
 // Custom Hooks
 import { useRequestSaver } from '../../app/hooks/request-saver'
+import { useAppDispatch } from '../../../plugins/store/hook'
+import { getPostList } from '../../../plugins/store/post.slice'
 
 const PostIndex = () => {
 	// Common State
@@ -19,6 +18,7 @@ const PostIndex = () => {
 
 	// Hooks
 	const requestSaver = useRequestSaver()
+	const dispatch = useAppDispatch()
 
 	/**
 	 * @description Load post list
@@ -27,13 +27,15 @@ const PostIndex = () => {
 	 */
 	const fetchPostList = useCallback(async (): Promise<void> => {
 		try {
-			await axios.get('/posts', {
-				...requestSaver.requestSaverSetCancellation('FETCH_POST_LIST')
-			})
+			await dispatch(
+				getPostList({
+					...requestSaver.requestSaverSetCancellation('FETCH_POST_LIST')
+				})
+			).unwrap()
 		} catch (_) {
 			//
 		}
-	}, [requestSaver])
+	}, [dispatch, requestSaver])
 
 	/**
 	 * @description Fetch initial when first time came to this page

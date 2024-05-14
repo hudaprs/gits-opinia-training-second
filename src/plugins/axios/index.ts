@@ -1,6 +1,9 @@
 // Axios
 import defaultAxios, { AxiosError } from 'axios'
 
+// React Toastify
+import { toast } from 'react-toastify'
+
 const axios = defaultAxios.create({
 	baseURL: 'https://jsonplaceholder.typicode.com',
 	timeout: 5000
@@ -32,6 +35,11 @@ axios.interceptors.response.use(
 				'Request canceled:',
 				`${error?.config?.baseURL}${error?.config?.url} ${error.message}`
 			)
+		} else {
+			const _error = error as AxiosError
+			toast(_error.message, {
+				type: 'error'
+			})
 		}
 
 		// Any status codes that falls outside the range of 2xx cause this function to trigger
