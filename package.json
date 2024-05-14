@@ -1,0 +1,50 @@
+{
+	"name": "react",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"patch": "npm version patch --no-commit-hooks -m 'chore(version): patch %s'",
+		"minor": "npm version minor --no-commit-hooks -m 'chore(version): minor %s'",
+		"major": "npm version major --no-commit-hooks -m 'chore(version): major %s'",
+		"version:patch": "yarn version --patch && yarn config set version-git-message 'chore(version): patch %s'",
+		"version:minor": "yarn version --minor && yarn config set version-git-message 'chore(version): minor %s'",
+		"version:major": "yarn version --major && yarn config set version-git-message 'chore(version): major %s'",
+		"lint": "eslint './src/**/*.{js,jsx,ts,tsx,json}'",
+		"lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx,json}'",
+		"lint:format": "prettier --write './src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+		"prepare": "husky"
+	},
+	"dependencies": {
+		"axios": "^1.4.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.15.0"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^19.3.0",
+		"@commitlint/config-conventional": "^19.2.2",
+		"@types/react": "^18.2.15",
+		"@types/react-dom": "^18.2.7",
+		"@typescript-eslint/eslint-plugin": "^6.0.0",
+		"@typescript-eslint/parser": "^6.0.0",
+		"@vitejs/plugin-react": "^4.0.3",
+		"eslint": "^8.45.0",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-refresh": "^0.4.3",
+		"husky": "^9.0.11",
+		"lint-staged": "^15.2.2",
+		"prettier": "^3.2.5",
+		"typescript": "^5.0.2",
+		"vite": "^4.4.5"
+	},
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx}": [
+			"yarn lint:format --max-warnings=0",
+			"yarn lint"
+		]
+	}
+}
